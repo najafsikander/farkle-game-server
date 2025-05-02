@@ -8,7 +8,7 @@ export class UserService {
     }
 
     createUser(data: any) {
-        info("Creating user.", data);
+        info("Creating user.", JSON.stringify(data));
         return {'Name':'Najaf Sikander'};
     }
 }
