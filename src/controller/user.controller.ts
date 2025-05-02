@@ -17,7 +17,7 @@ export class UserController {
 
     createUser = (req:Request,res:Response) => {
         try {
-            const user = this.userService.createUser(req.socket);
+            const user = this.userService.createUser(req.body.toString());
             res.status(201).json({ message: user });
         } catch (error) {
             warn("Error in controller createUser: ", error);
