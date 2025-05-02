@@ -14,4 +14,14 @@ export class UserController {
             throw error;
         }
     }
+
+    createUser = (req:Request,res:Response) => {
+        try {
+            const user = this.userService.createUser(req.body);
+            res.status(201).json({ message: user });
+        } catch (error) {
+            warn("Error in controller createUser: ", error);
+            throw error;
+        }
+    }
 }

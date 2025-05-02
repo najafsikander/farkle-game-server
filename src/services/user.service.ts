@@ -6,5 +6,10 @@ export class UserService {
         info("Fetching users.");
         return 'users fetched';
     }
+
+    createUser(data: any) {
+        info("Creating user.", data);
+        return {'Name':'Najaf Sikander'};
+    }
 }
 
