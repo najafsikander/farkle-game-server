@@ -1,5 +1,5 @@
 import express from 'express';
-// import helmet from 'helmet';
+import helmet from 'helmet';
 import cors from 'cors';
 import morgan from 'morgan';
 import { config } from 'dotenv';
@@ -17,12 +17,7 @@ const port = process.env.PORT || 3000;
 // Apply middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(
-//     helmet({
-//       contentSecurityPolicy: false, // Disable CSP temporarily to diagnose issues
-//       crossOriginEmbedderPolicy: false,
-//     })
-//   );
+app.use(helmet());
   
 app.use(cors());
 app.use(morgan('combined'));
