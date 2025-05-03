@@ -8,6 +8,8 @@ import { connectToDatabase } from './lib/dbConnection.js';
 import { info, error } from './lib/logger.js';
 import errorHandler from './middleware/error.js';
 import router from './router/index.js';
+import apiLimiter from './middleware/rateLimiter.js';
+import validateContentType from './middleware/requestValidator.js';
 
 config();
 
@@ -18,9 +20,11 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-  
 app.use(cors());
 app.use(morgan('combined'));
+app.use(apiLimiter)
+app.use(validateContentType);
+
 
 // Use router
 app.use('/', router);
