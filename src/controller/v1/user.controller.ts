@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import {UserService} from "../services/user.service.js";
-import { warn } from "../lib/logger.js";
+import {UserService} from "../../services/v1/user.service.js";
+import { warn } from "../../lib/logger.js";
 
 export class UserController {
     constructor(private userService = new UserService()) {}
