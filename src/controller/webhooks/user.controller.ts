@@ -1,5 +1,5 @@
 import { NextFunction,Request,Response } from "express";
-import { UserService } from "../../services/webhooks/user.service";
+import { UserService } from "../../services/webhooks/user.service.js";
 import { log } from "../../lib/logger";
 
 export class UserController {
