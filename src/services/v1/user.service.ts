@@ -1,4 +1,4 @@
-import { info } from "../../lib/logger";
+import { info } from "../../lib/logger.js";
 
 export class UserService {
 

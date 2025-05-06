@@ -1,6 +1,6 @@
 import { NextFunction,Request,Response } from "express";
 import { UserService } from "../../services/webhooks/user.service.js";
-import { log } from "../../lib/logger";
+import { log } from "../../lib/logger.js";
 
 export class UserController {
     constructor(private userService = new UserService()) {}
