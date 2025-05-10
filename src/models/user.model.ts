@@ -1,15 +1,31 @@
 import { Schema, model } from "mongoose";
-import { User } from "../types/user.js";
+import { User,ClerkEmail } from "../types/user.js";
+
+// Define the nested schema for EmailVerification
+const emailVerificationSchema = new Schema({
+  expire_at: { type: Number, required: true },
+  status: { type: String, required: true },
+  strategy: { type: String, required: true },
+  verified_at_client: { type: String, required: true },
+}, { _id: false });
+
+// Define the nested schema for ClerkEmail
+const clerkEmailSchema = new Schema({
+  created_at: { type: Number, required: true },
+  email_address: { type: String, required: true },
+  id: { type: String, required: true },
+  updated_at: { type: Number, required: true },
+  verification: { type: emailVerificationSchema, required: true },
+}, { _id: false });
 
 const userSchema = new Schema<User>({
-    id: { type: String, required: true, unique: true },
-    username: { type: String, required: true, unique: true },
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
+    id: { type: String, required: true, unique: true, index: true },
+    username: { type: String, required: true, unique: true, index: true },
+    first_name: { type: String, required: true, index: true },
+    last_name: { type: String, required: true, index: true },
     image_url: { type: String, required: true },
-    primary_email_id: { type: String, required: true },
-    primary_phone_number_id: { type: String, default: null },
-    created_at: { type: Date, default: Date.now }
+    email_addresses: { type: [clerkEmailSchema], required: true, index: true },
+    created_at: { type: Date, default: Date.now, index: true },
 }, {
     timestamps: false,
 });

@@ -7,10 +7,11 @@ export class UserController {
 
     updateUser = (req: Request, res: Response, next:NextFunction) => {
         try {
-            const data = req.body;
+            const data = req.body || (req as any).rawBody;
+            const svixHeaders = req.headers;
             log("req.body", data);
-            const user = this.userService.updateUser(data);
-            res.status(200).json({ message: user });
+            const user = this.userService.updateUser(data,svixHeaders);
+            res.status(200).json({ user });
         } catch (error) {
             console.error("Error in controller updateUser: ", error);
             next(error);

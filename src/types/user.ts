@@ -1,10 +1,25 @@
+type EmailVerification = {
+  expire_at: number;
+  status: string;
+  strategy: string;
+  verified_at_client:string;
+}
+
+export type ClerkEmail = {
+    created_at: number;
+  email_address: string;
+  id: string;
+  updated_at: number;
+  verification: EmailVerification;
+}
+
+
 export type User = {
-    id: string;
+    id: string; //Clerk User ID
     username: string;
     first_name: string;
     last_name: string;
     image_url: string;
-    primary_email_id: string;
-    primary_phone_number_id: string | null;
+    email_addresses: ClerkEmail[];
     created_at: Date;
 }
