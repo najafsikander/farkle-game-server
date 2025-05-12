@@ -7,6 +7,5 @@ const userController = new UserController();
 
 router.get('/', userController.getUsers);
 
-//TODO:Handle clerk webhook properly in future
-router.post('/user',express.raw({type: 'application/json'}), userController.createUser);
+router.post('/user', userController.createUser);
 export default router;
