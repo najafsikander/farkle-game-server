@@ -1,5 +1,5 @@
 import { Webhook } from "svix";
-import { error } from "../lib/logger";
+import { error } from "../lib/logger.js";
 
 export const verifyClerkSignature = (body: any, headers: any): string => {
     try {
