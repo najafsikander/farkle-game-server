@@ -7,5 +7,6 @@ const  rawBody = express.raw({ type: 'application/json' });
 const userController = new UserController();
 
 router.post('/user',rawBody,userController.updateUser);
+router.post('/deleteUser',rawBody,userController.deleteUser)
 
 export default router;

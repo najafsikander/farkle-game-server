@@ -2,6 +2,7 @@ import { IncomingHttpHeaders } from "http";
 import { info,error } from "../../lib/logger.js";
 import { Webhook } from "svix";
 import User from "../../models/user.model.js";
+import { verifyClerkSignature } from "../../utils/clerkWHVerifier.js";
 
 export class UserService {
 
@@ -9,15 +10,9 @@ export class UserService {
         try {
             info("Updating user body.", JSON.stringify(body));
             info("Headers: ", JSON.stringify(headers));
-            const clerkWHSecret = process.env.CLERK_WEBHOOK_SECRET;
-            if (!clerkWHSecret) throw new Error("Webhook secret not found");
-            const wh = new Webhook(clerkWHSecret)
-            const eventWh:any = wh.verify(JSON.stringify(body), headers);
-            if(!eventWh) throw new Error("Invalid webhook");
-            const eventType = eventWh?.type;
+            const eventType = verifyClerkSignature(body,headers);
             info("Event Type: ", eventType);
-            const data = body.data;
-            const { id, ...attributes } = data;
+            const { id, ...attributes } = body.data;
             if(eventType === "user.updated" || eventType === "user.created") {
                 const user = await User.findOne({ id});
                 if(!user) {
@@ -37,4 +32,25 @@ export class UserService {
         }
     }
     
+    deleteUser = async (body: any, headers: any) => {
+        try {
+            info("Updating user body.", JSON.stringify(body));
+            info("Headers: ", JSON.stringify(headers));
+            const eventType = verifyClerkSignature(body,headers);
+            info("Event Type: ", eventType);
+            const {id} = body.data;
+            if(eventType === 'user.deleted') {
+                const user = await User.findOne({id});
+                if(!user) throw 'User doenst exist';
+                await User.findByIdAndDelete(user._id);
+                return 'User is deleted';
+            }
+        } catch (err) {
+            error('Error caught in user services: ',err);
+            throw err;
+        }
+    }
+
+
+
 }
