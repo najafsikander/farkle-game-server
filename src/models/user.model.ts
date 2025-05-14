@@ -26,8 +26,10 @@ const userSchema = new Schema<User>({
     image_url: { type: String, required: true },
     email_addresses: { type: [clerkEmailSchema], required: true, index: true },
     created_at: { type: Date, default: Date.now, index: true },
+    is_deleted: { type: Boolean, default: false },
+    is_blocked: { type: Boolean, default: false }
 }, {
-    timestamps: false,
+    timestamps: true,
 });
 
 const User = model<User>('User', userSchema);

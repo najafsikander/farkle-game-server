@@ -4,6 +4,7 @@ import { Webhook } from "svix";
 import User from "../../models/user.model.js";
 
 export class UserService {
+
     updateUser = async (body: any, headers: any) => {
         try {
             info("Updating user body.", JSON.stringify(body));
@@ -17,7 +18,7 @@ export class UserService {
             info("Event Type: ", eventType);
             const data = body.data;
             const { id, ...attributes } = data;
-            if(eventType === "user.updated") {
+            if(eventType === "user.updated" || eventType === "user.created") {
                 const user = await User.findOne({ id});
                 if(!user) {
                     const newUser = new User({ id, ...attributes });
@@ -35,4 +36,5 @@ export class UserService {
             throw error;
         }
     }
+    
 }

@@ -22,4 +22,6 @@ export type User = {
     image_url: string;
     email_addresses: ClerkEmail[];
     created_at: Date;
+    is_deleted: boolean;
+    is_blocked: boolean;
 }
