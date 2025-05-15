@@ -5,7 +5,7 @@ export const connectToDatabase = async () => {
         const url = process.env.DB_URI;
         if(url) {
             const connection = await connect(url);
-            if(!connection) throw 'Something went wrong';
+            if(!connection) throw  new Error('Something went wrong');
             info("Connected to the database");
         }
     } catch (error) {

@@ -20,7 +20,7 @@ const clerkEmailSchema = new Schema({
 
 const userSchema = new Schema<User>({
     id: { type: String, required: true, unique: true, index: true },
-    username: { type: String, required: true, unique: true, index: true },
+    username: { type: String, required: true, unique: true },
     first_name: { type: String, required: true, index: true },
     last_name: { type: String, required: true, index: true },
     image_url: { type: String, required: true },

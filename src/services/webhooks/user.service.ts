@@ -41,7 +41,7 @@ export class UserService {
             const {id} = body.data;
             if(eventType === 'user.deleted') {
                 const user = await User.findOne({id});
-                if(!user) throw 'User doenst exist';
+                if(!user) throw new Error('User doenst exist');
                 await User.findByIdAndDelete(user._id);
                 return 'User is deleted';
             }
